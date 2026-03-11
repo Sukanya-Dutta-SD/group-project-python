@@ -1,6 +1,8 @@
 import csv
 from email.charset import add_charset
 
+from isapi.install import build_usage
+
 
 # Add Tourist
 def add_tourist():
@@ -54,14 +56,33 @@ def book_package():
     booking_id = input("Enter Booking ID: ")
     tourist_id = input("Enter Tourist ID: ")
 
+
     show_packages()
 
     package_id = input("Enter Package ID: ")
     date = input("Enter Travel Date: ")
+    print("Transport t=Type")
+    print("1. Bus - 1000")
+    print("2. Train - 800")
+    print("3. Flight - 8000")
+    choice = int(input("Enter transport number: "))
+    if choice == 1:
+        if choice == 1:
+            transport = "Bus"
+            price = 500
+        elif choice == 2:
+            transport = "Train"
+            price = 1000
+        elif choice == 3:
+            transport = "Flight"
+            price = 5000
+        else:
+            print("Invalid choice")
+            exit()
 
     with open("bookings.csv","a",newline="") as f:
         writer = csv.writer(f)
-        writer.writerow([booking_id,tourist_id,package_id,date])
+        writer.writerow([booking_id,tourist_id,package_id,date,])
 
     print("Package Booked Successfully")
 
