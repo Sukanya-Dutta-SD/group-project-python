@@ -116,7 +116,8 @@ while True:
     elif ch == "6":
         generate_bill()
     elif ch == "7":
-
+        print("Thank You for Visiting Our Site")
+        print("hi")
         break
     else:
         print("Invalid Choice")
