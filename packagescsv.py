@@ -1,8 +1,28 @@
-import csv
-
 # Add Tourist
-def add_tourist() -> None:
-    tid = input("Enter Tourist ID: ")
+import csv
+import os
+
+def add_tourist():
+
+    # Automatic Tourist ID (101,102,103...)
+    tid = 101
+
+    if os.path.exists("tourists.csv"):
+        with open("tourists.csv", "r") as f:
+            reader = csv.reader(f)
+
+            ids = []
+
+            for row in reader:
+                if row:
+                    try:
+                        ids.append(int(row[0]))
+                    except ValueError:
+                        continue
+
+            if ids:
+                tid = max(ids) + 1
+
     name = input("Enter Name: ")
     phone = input("Enter Phone: ")
     email = input("Enter Email: ")
@@ -14,8 +34,7 @@ def add_tourist() -> None:
         writer.writerow([tid, name, phone, email, city, aadhar])
 
     print("Tourist Added Successfully")
-
-
+    print("Generated Tourist ID:", tid)
 # View Tourists
 def view_tourists():
     try:
@@ -32,13 +51,16 @@ def search_tourist():
     tid = input("Enter Tourist ID: ")
 
     found = False
-    with open("tourists.csv", "r") as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if row[0] == tid:
-                print("Tourist Found:", row)
-                found = True
-                break
+    try:
+        with open("tourists.csv", "r") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if row[0] == tid:
+                    print("Tourist Found:", row)
+                    found = True
+                    break
+    except:
+        print("File not found")
 
     if not found:
         print("Tourist Not Found")
@@ -59,36 +81,34 @@ def show_packages():
 
 # Book Package
 def book_package():
-    booking_id = input("Enter Booking ID: ")
+
+    # Automatic Booking ID (A01, A02, A03...)
+    booking_id = "A01"
+
+    if os.path.exists("bookings.csv"):
+        with open("bookings.csv", "r") as f:
+            reader = csv.reader(f)
+
+            last_number = 0
+
+            for row in reader:
+                if row and row[0].startswith("A"):
+                    try:
+                        num = int(row[0][1:])
+                        if num > last_number:
+                            last_number = num
+                    except:
+                        pass
+
+            booking_id = f"A{last_number + 1:02d}"
+
     tourist_id = input("Enter Tourist ID: ")
+    tourist_name = input("Enter Tourist Name: ")
 
     show_packages()
 
     package_id = input("Enter Package ID: ")
     date = input("Enter Travel Date: ")
-<<<<<<< HEAD
-=======
-    print("Select Transport")
-
-    print("1. Bus - 500")
-    print("2. Train - 1000")
-    print("3. Flight - 5000")
-
-    choice = int(input("Enter transport number: "))
-
-    if choice == 1:
-        transport = "Bus"
-        price = 500
-    elif choice == 2:
-        transport = "Train"
-        price = 1000
-    elif choice == 3:
-        transport = "Flight"
-        price = 5000
-    else:
-        print("Invalid choice")
-        exit()
->>>>>>> 19c89e59f2c7e22bf3d18b352c544d3e5f1a5789
 
     print("\nTransport Type")
     print("1. Bus - 500")
@@ -112,32 +132,23 @@ def book_package():
 
     with open("bookings.csv", "a", newline="") as f:
         writer = csv.writer(f)
-<<<<<<< HEAD
-        writer.writerow([booking_id, tourist_id, package_id, date, transport, price])
-=======
-        writer.writerow([booking_id,tourist_id,package_id,date,transport,price])
->>>>>>> 19c89e59f2c7e22bf3d18b352c544d3e5f1a5789
+        writer.writerow([booking_id, tourist_id, tourist_name, package_id, date, transport, price])
+
+    print("Package Booked Successfully")
+    print("Generated Booking ID:", booking_id)
 
     print("Package Booked Successfully")
 
-
 # View Bookings
 def view_bookings():
-<<<<<<< HEAD
     try:
         with open("bookings.csv", "r") as f:
             reader = csv.reader(f)
+            print("\nbooking_id | tourist_id | tourist_name | package_id | date | transport | price")
             for row in reader:
                 print(row)
     except:
         print("No Booking Records Found")
-=======
-    with open("bookings.csv","r") as f:
-        reader = csv.reader(f)
-        print("\n booking_id | tourist_id | package_id | date | transport | price")
-        for row in reader:
-            print(row)
->>>>>>> 19c89e59f2c7e22bf3d18b352c544d3e5f1a5789
 
 
 # Generate Bill
