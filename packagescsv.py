@@ -1,6 +1,7 @@
 # Add Tourist
 import csv
 import os
+import matplotlib.pyplot as plt
 
 def add_tourist():
 
@@ -111,21 +112,21 @@ def book_package():
     date = input("Enter Travel Date: ")
 
     print("\nTransport Type")
-    print("1. Bus - 500")
-    print("2. Train - 1000")
-    print("3. Flight - 5000")
+    print("1. Bus")
+    print("2. Train")
+    print("3. Flight")
 
     choice = int(input("Enter Transport Number: "))
 
     if choice == 1:
         transport = "Bus"
-        price = 500
+        price = 0
     elif choice == 2:
         transport = "Train"
-        price = 1000
+        price = 0
     elif choice == 3:
         transport = "Flight"
-        price = 5000
+        price = 0
     else:
         print("Invalid Choice")
         return
@@ -150,10 +151,142 @@ def view_bookings():
     except:
         print("No Booking Records Found")
 
+    # CHART FUNCTIONS
+    #transport chart
+    def transport_chart():
 
-# Generate Bill
+        bus = 0
+        train = 0
+        flight = 0
+
+        try:
+            with open("bookings.csv", "r") as f:
+
+                reader = csv.reader(f)
+
+                for row in reader:
+
+                    if not row:
+                        continue
+
+                    if row[5] == "Bus":
+                        bus += 1
+
+                    elif row[5] == "Train":
+                        train += 1
+
+                    elif row[5] == "Flight":
+                        flight += 1
+
+        except:
+            print("Bookings file not found")
+            return
+
+        labels = ["Bus", "Train", "Flight"]
+        values = [bus, train, flight]
+
+        plt.bar(labels, values)
+        plt.title("Transport Usage")
+        plt.xlabel("Transport")
+        plt.ylabel("Bookings")
+        plt.show()
+
+#package chart
+    def package_chart():
+
+        package_count = {}
+
+        try:
+            with open("bookings.csv", "r") as f:
+
+                reader = csv.reader(f)
+
+                for row in reader:
+
+                    pid = row[3]
+
+                    if pid in package_count:
+                        package_count[pid] += 1
+                    else:
+                        package_count[pid] = 1
+
+        except:
+            print("Bookings file not found")
+            return
+
+        packages = list(package_count.keys())
+        counts = list(package_count.values())
+
+        plt.bar(packages, counts)
+        plt.title("Package Popularity")
+        plt.xlabel("Package ID")
+        plt.ylabel("Bookings")
+        plt.show()
+
+    #city chart
+    def city_chart():
+
+        city_count = {}
+
+        try:
+            with open("tourists.csv", "r") as f:
+
+                reader = csv.reader(f)
+
+                for row in reader:
+
+                    city = row[4]
+
+                    if city in city_count:
+                        city_count[city] += 1
+                    else:
+                        city_count[city] = 1
+
+        except:
+            print("Tourists file not found")
+            return
+
+        cities = list(city_count.keys())
+        counts = list(city_count.values())
+
+        plt.bar(cities, counts)
+        plt.title("Tourists by City")
+        plt.xlabel("City")
+        plt.ylabel("Tourists")
+        plt.show()
+
+    # CHART MENU
+    def chart_menu():
+
+        while True:
+
+            print("\n------ CHART ANALYTICS ------")
+            print("1. Transport Usage Chart")
+            print("2. Package Popularity Chart")
+            print("3. Tourist City Chart")
+            print("4. Back to Main Menu")
+
+            ch = input("Enter Choice: ")
+
+            if ch == "1":
+                transport_chart()
+
+            elif ch == "2":
+                package_chart()
+
+            elif ch == "3":
+                city_chart()
+
+            elif ch == "5":
+                break
+
+            else:
+                print("Invalid Choice")
+
+    # Generate Bill
 
     print("Booking Not Found")
+
 # def generate_bill():
 #     pid = input("Enter Package ID: ")
 # 
@@ -247,39 +380,5 @@ def generate_bill():
     print("Booking Not Found")
 
 # Main Menu
+
 while True:
-    print("\n--- Tourism Management System ---")
-    print("1. Add Tourist")
-    print("2. View Tourists")
-    print("3. Search Tourist")
-    print("4. Book Package")
-    print("5. View Bookings")
-    print("6. Generate Bill")
-    print("7. Exit")
-
-    ch = input("Enter Choice: ")
-
-    if ch == "1":
-        add_tourist()
-
-    elif ch == "2":
-        view_tourists()
-
-    elif ch == "3":
-        search_tourist()
-
-    elif ch == "4":
-        book_package()
-
-    elif ch == "5":
-        view_bookings()
-
-    elif ch == "6":
-        generate_bill()
-
-    elif ch == "7":
-        print("Thank You for Visiting Our Site")
-        break
-
-    else:
-        print("Invalid Choice")

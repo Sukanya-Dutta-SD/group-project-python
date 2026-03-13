@@ -118,7 +118,7 @@ def generate_bill():
                     print("\n----- BILL -----")
                     print("Place:", row[1])
                     print("Days:", row[2])
-                    print("Package Amount:", row[3])
+                    print("Package Amount:", row[4])
                     return
         print("Package not found.")
     except FileNotFoundError:
