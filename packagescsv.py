@@ -239,6 +239,7 @@ def transport_chart():
     labels = ["Bus", "Train", "Flight"]
     values = [bus, train, flight]
 
+
     plt.bar(labels, values)
     plt.title("Transport Usage")
     plt.xlabel("Transport")
