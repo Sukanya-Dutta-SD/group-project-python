@@ -6,6 +6,35 @@ import pyttsx3
 from pyttsx3 import speak
 
 
+
+#speak
+
+def speak(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 170)
+    engine.setProperty('volume', 10.0)
+    voices = engine.getProperty('voices')
+
+    engine.setProperty('voice', voices[1].id)
+    engine.say(text)
+    engine.runAndWait()
+    engine.stop()
+
+def speak_back(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 170)
+    engine.setProperty('volume', 10.0)
+    voices = engine.getProperty('voices')
+
+    engine.setProperty('voice', voices[1].id)
+
+    engine.say(text)
+    engine.runAndWait()
+    engine.stop()
+    return text
+
+
+
 def add_tourist():
 
     # Automatic Tourist ID (101,102,103...)
@@ -27,18 +56,19 @@ def add_tourist():
             if ids:
                 tid = max(ids) + 1
 
-    name = input("Enter Name: ")
-    phone = input("Enter Phone: ")
-    email = input("Enter Email: ")
-    city = input("Enter City: ")
-    aadhar = input("Enter Aadhar No: ")
+    name = input(speak_back("Enter Name: "))
+    phone = input(speak_back("Enter Phone no: "))
+    email = input(speak_back("Enter Email: "))
+    city = input(speak_back("Enter City: "))
+    aadhar = input(speak_back("Enter Aadhar No: "))
 
     with open("tourists.csv", "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([tid, name, phone, email, city, aadhar])
 
-    print("Tourist Added Successfully")
-    print("Generated Tourist ID:", tid)
+    print(speak_back("Tourist Added Successfully"))
+    tourist_id_speak = "Generated Tourist ID:", tid
+    print(speak_back(tourist_id_speak))
 # View Tourists
 def view_tourists():
     try:
@@ -47,12 +77,12 @@ def view_tourists():
             for row in reader:
                 print(row)
     except:
-        print("No Tourist Records Found")
+        print(speak_back("No Tourist Records Found"))
 
 
 # Search Tourist
 def search_tourist():
-    tid = input("Enter Tourist ID: ")
+    tid = input(speak_back("Enter Tourist ID: "))
 
     found = False
     try:
@@ -60,28 +90,16 @@ def search_tourist():
             reader = csv.reader(f)
             for row in reader:
                 if row[0] == tid:
-                    print("Tourist Found:", row)
+                    tourist_found_text = "Tourist Found:", row
+                    print(speak_back(tourist_found_text))
                     found = True
                     break
     except:
-        print("File not found")
+        print(speak_back("File not found"))
 
     if not found:
-        print("Tourist Not Found")
+        print(speak_back("Tourist Not Found"))
 
-
-#speak
-
-def speak(text):
-    engine = pyttsx3.init()
-    engine.setProperty('rate', 170)
-    engine.setProperty('volume', 10.0)
-    voices = engine.getProperty('voices')
-
-    engine.setProperty('voice', voices[1].id)
-    engine.say(text)
-    engine.runAndWait()
-    engine.stop()
 
 
 # Fetch Tourist
@@ -99,10 +117,10 @@ def fetch_tourist(tid):
                     # break
 
     except:
-        print("File not found")
+        print(speak_back("File not found"))
 
     if not found:
-        print("Tourist Not Found")
+        print(speak_back("Tourist Not Found"))
 
 
 # Fetch package
@@ -120,17 +138,17 @@ def fetch_package(tid):
                     # break
 
     except:
-        print("File not found")
+        print(speak_back("File not found"))
 
     if not found:
-        print("Package Not Found")
+        print(speak_back("Package Not Found"))
 
 
 
 
 # Show Packages
 def show_packages():
-    print("\nAvailable Packages\n")
+    print(speak_back("\nAvailable Packages\n"))
 
     try:
         with open("packages.csv", "r") as f:
@@ -138,7 +156,7 @@ def show_packages():
             for row in reader:
                 print(row)
     except:
-        print("Package File Not Found")
+        print(speak_back("Package File Not Found"))
 
 
 # Book Package
@@ -164,7 +182,7 @@ def book_package():
 
             booking_id = f"A{last_number + 1:02d}"
 
-    tourist_id = input("Enter Tourist ID: ")
+    tourist_id = input(speak_back("Enter Tourist ID: "))
 
     # tourist_name = input("Enter Tourist Name: ")
 
@@ -172,16 +190,16 @@ def book_package():
 
     show_packages()
 
-    package_id = input("Enter Package ID: ")
+    package_id = input(speak_back("Enter Package ID: "))
     package_details = fetch_package(package_id)
-    date = input("Enter Travel Date: ")
+    date = input(speak_back("Enter Travel Date: "))
 
     print("\nTransport Type")
     print("1. Bus")
     print("2. Train")
     print("3. Flight")
 
-    choice = int(input("Enter Transport Number: "))
+    choice = int(input(speak_back("Enter Transport Number: ")))
 
     if choice == 1:
         transport = "Bus"
@@ -200,11 +218,10 @@ def book_package():
         writer = csv.writer(f)
         writer.writerow([booking_id, tourist_id, tourist_details[1], tourist_details[2], tourist_details[3], tourist_details[4], package_details[1], date, transport, price])
 
-    speak("Package Booked Successfully")
-    print("Package Booked Successfully")
+    print(speak_back("Package Booked Successfully"))
     booking_text = "Generated Booking ID:", booking_id
-    speak(booking_text)
-    print("Generated Booking ID:", booking_id)
+
+    print(speak_back(booking_text))
 # CHART FUNCTIONS
 #transport chart
 def transport_chart():
@@ -333,7 +350,7 @@ def chart_menu():
         elif ch == "3":
             city_chart()
 
-        elif ch == "5":
+        elif ch == "4":
             break
 
         else:
