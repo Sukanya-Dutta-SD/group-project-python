@@ -34,8 +34,9 @@ def add_tourist():
     with open("tourists.csv", "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([tid, name, phone, email, city, aadhar])
-
+    speak("Tourist Added Successfully")
     print("Tourist Added Successfully")
+    speak(f"Generated Tourist ID {tid}")
     print("Generated Tourist ID:", tid)
 # View Tourists
 def view_tourists():
