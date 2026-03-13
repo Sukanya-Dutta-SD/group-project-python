@@ -2,6 +2,7 @@
 import csv
 import os
 import matplotlib.pyplot as plt
+import pyttsx3
 from pyttsx3 import speak
 
 
@@ -67,6 +68,64 @@ def search_tourist():
 
     if not found:
         print("Tourist Not Found")
+
+
+#speak
+
+def speak(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 170)
+    engine.setProperty('volume', 10.0)
+    voices = engine.getProperty('voices')
+
+    engine.setProperty('voice', voices[1].id)
+    engine.say(text)
+    engine.runAndWait()
+    engine.stop()
+
+
+# Fetch Tourist
+
+def fetch_tourist(tid):
+    found = False
+    try:
+        with open("tourists.csv", "r") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if row[0] == tid:
+
+                    found = True
+                    return row
+                    # break
+
+    except:
+        print("File not found")
+
+    if not found:
+        print("Tourist Not Found")
+
+
+# Fetch package
+
+def fetch_package(tid):
+    found = False
+    try:
+        with open("packages.csv", "r") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if row[0] == tid:
+
+                    found = True
+                    return row
+                    # break
+
+    except:
+        print("File not found")
+
+    if not found:
+        print("Package Not Found")
+
+
 
 
 # Show Packages
