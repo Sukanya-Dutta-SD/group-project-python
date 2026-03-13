@@ -2,6 +2,8 @@
 import csv
 import os
 import matplotlib.pyplot as plt
+from pyttsx3 import speak
+
 
 def add_tourist():
 
@@ -382,3 +384,39 @@ def generate_bill():
 # Main Menu
 
 while True:
+        print("\n--- Tourism Management System ---")
+        print("1. Add Tourist")
+        print("2. View Tourists")
+        print("3. Search Tourist")
+        print("4. Book Package")
+        print("5. View Bookings")
+        print("6. Generate Bill")
+        print("7. Exit")
+
+        ch = input("Enter Choice: ")
+
+        if ch == "1":
+            add_tourist()
+
+        elif ch == "2":
+            view_tourists()
+
+        elif ch == "3":
+            search_tourist()
+
+        elif ch == "4":
+            book_package()
+
+        elif ch == "5":
+            view_bookings()
+
+        elif ch == "6":
+            generate_bill()
+
+        elif ch == "7":
+            speak('Thank You for Visiting Our Site')
+            print("Thank You for Visiting Our Site")
+            break
+
+        else:
+            print("Invalid Choice")
