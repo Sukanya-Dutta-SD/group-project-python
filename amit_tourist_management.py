@@ -1,6 +1,8 @@
 # Add Tourist
 import csv
 import os
+import pyttsx3
+
 
 def add_tourist():
 
@@ -64,6 +66,20 @@ def search_tourist():
 
     if not found:
         print("Tourist Not Found")
+
+#speak
+
+def speak(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 170)
+    engine.setProperty('volume', 10.0)
+    voices = engine.getProperty('voices')
+
+    engine.setProperty('voice', voices[1].id)
+    engine.say(text)
+    engine.runAndWait()
+    engine.stop()
+
 
 # Fetch Tourist
 
@@ -144,6 +160,7 @@ def book_package():
             booking_id = f"A{last_number + 1:02d}"
 
     tourist_id = input("Enter Tourist ID: ")
+
     # tourist_name = input("Enter Tourist Name: ")
 
     tourist_details = fetch_tourist(tourist_id)
@@ -158,10 +175,12 @@ def book_package():
         writer = csv.writer(f)
         writer.writerow([booking_id, tourist_id, tourist_details[1], tourist_details[2], tourist_details[3], tourist_details[4], package_details[1], date, package_details[3], package_details[4]])
 
+    speak("Package Booked Successfully")
     print("Package Booked Successfully")
+    booking_text = "Generated Booking ID:", booking_id
+    speak(booking_text)
     print("Generated Booking ID:", booking_id)
 
-    print("Package Booked Successfully")
 
 # View Bookings
 def view_bookings():
@@ -255,6 +274,7 @@ while True:
         generate_bill()
 
     elif ch == "7":
+        speak("Thank You for Visiting Our Site")
         print("Thank You for Visiting Our Site")
         break
 
