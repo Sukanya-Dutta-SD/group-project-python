@@ -1,12 +1,3 @@
-1,1,2,10-02-2026
-101,22,101,5/6/2026,bus
-44444,22222,1010,2/6/2025,
-202222,1232222,234455,4/5/2026
-233334445,56790435,12334558,14/05/2026
-1001,1,1,12-08-2026,Bus,500
-1001,2,2,22-01-2027
-10001,1,3,22-06-2026,Train,1000
-A01,1001,amit,2,22-01-2026,Train,1000
-A02,4,Amit Kundu,2,22-12-2026,Train,1000
-A03,4,Amit Kundu,6294357075,amit@gmailcom,Andal,3,22-12-2026,Flight,"10,000"
-A04,3,Akash Jha,983256,akash@gmail.com,Asansol,Kedernath,12-08-2026,Flight,"10,000"
+Booking Id,Tourist Id,Tourist Name,Tourist Phone No , Tourist Email,Tourist City,Package Name,Date,Mode of Transport,Price
+A01,102,Sukanya Dutta,7811022281,sukanya@gmail.com,Andal,Kedernath,15-03-2026,Flight,"10,000"
+A02,104,Surya Mondal,7431999482,surya@gmail.com,Ukhra,Kashmir,20-04-2026,Train,"8,000"
