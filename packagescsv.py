@@ -111,21 +111,21 @@ def book_package():
     date = input("Enter Travel Date: ")
 
     print("\nTransport Type")
-    print("1. Bus - 500")
-    print("2. Train - 1000")
-    print("3. Flight - 5000")
+    print("1. Bus")
+    print("2. Train")
+    print("3. Flight")
 
     choice = int(input("Enter Transport Number: "))
 
     if choice == 1:
         transport = "Bus"
-        price = 500
+        price = 0
     elif choice == 2:
         transport = "Train"
-        price = 1000
+        price = 0
     elif choice == 3:
         transport = "Flight"
-        price = 5000
+        price = 0
     else:
         print("Invalid Choice")
         return
