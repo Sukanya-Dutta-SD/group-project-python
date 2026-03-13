@@ -65,6 +65,48 @@ def search_tourist():
     if not found:
         print("Tourist Not Found")
 
+# Fetch Tourist
+
+def fetch_tourist(tid):
+    found = False
+    try:
+        with open("tourists.csv", "r") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if row[0] == tid:
+
+                    found = True
+                    return row
+                    # break
+
+    except:
+        print("File not found")
+
+    if not found:
+        print("Tourist Not Found")
+
+
+# Fetch package
+
+def fetch_package(tid):
+    found = False
+    try:
+        with open("packages.csv", "r") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if row[0] == tid:
+
+                    found = True
+                    return row
+                    # break
+
+    except:
+        print("File not found")
+
+    if not found:
+        print("Package Not Found")
+
+
 
 # Show Packages
 def show_packages():
@@ -82,7 +124,6 @@ def show_packages():
 # Book Package
 def book_package():
 
-    # Automatic Booking ID (A01, A02, A03...)
     booking_id = "A01"
 
     if os.path.exists("bookings.csv"):
@@ -103,36 +144,19 @@ def book_package():
             booking_id = f"A{last_number + 1:02d}"
 
     tourist_id = input("Enter Tourist ID: ")
-    tourist_name = input("Enter Tourist Name: ")
+    # tourist_name = input("Enter Tourist Name: ")
+
+    tourist_details = fetch_tourist(tourist_id)
 
     show_packages()
 
     package_id = input("Enter Package ID: ")
+    package_details = fetch_package(package_id)
     date = input("Enter Travel Date: ")
-
-    print("\nTransport Type")
-    print("1. Bus")
-    print("2. Train")
-    print("3. Flight")
-
-    choice = int(input("Enter Transport Number: "))
-
-    if choice == 1:
-        transport = "Bus"
-        price = 0
-    elif choice == 2:
-        transport = "Train"
-        price = 0
-    elif choice == 3:
-        transport = "Flight"
-        price = 0
-    else:
-        print("Invalid Choice")
-        return
 
     with open("bookings.csv", "a", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow([booking_id, tourist_id, tourist_name, package_id, date, transport, price])
+        writer.writerow([booking_id, tourist_id, tourist_details[1], tourist_details[2], tourist_details[3], tourist_details[4], package_details[1], date, package_details[3], package_details[4]])
 
     print("Package Booked Successfully")
     print("Generated Booking ID:", booking_id)
@@ -140,11 +164,11 @@ def book_package():
     print("Package Booked Successfully")
 
 # View Bookings
-def view_bookings():-
+def view_bookings():
     try:
         with open("bookings.csv", "r") as f:
             reader = csv.reader(f)
-            print("\nbooking_id | tourist_id | tourist_name | package_id | date | transport | price")
+            print("\nbooking_id | tourist_id | tourist_name | tourist_phone_no | tourist_email | tourist_city | package_name | date | mode_of_transport | price")
             for row in reader:
                 print(row)
     except:
