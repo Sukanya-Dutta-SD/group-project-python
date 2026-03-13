@@ -111,15 +111,15 @@ def book_package():
     date = input("Enter Travel Date: ")
 
     print("\nTransport Type")
-    print("1. Bus - 500")
-    print("2. Train - 1000")
-    print("3. Flight - 5000")
+    print("1. Bus")
+    print("2. Train")
+    print("3. Flight")
 
     choice = int(input("Enter Transport Number: "))
 
     if choice == 1:
         transport = "Bus"
-        price = 500
+        package_id = "bus price"
     elif choice == 2:
         transport = "Train"
         price = 1000
@@ -129,10 +129,9 @@ def book_package():
     else:
         print("Invalid Choice")
         return
-
     with open("bookings.csv", "a", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow([booking_id, tourist_id, tourist_name, package_id, date, transport, price])
+        writer.writerow([booking_id, tourist_id, tourist_name, package_id, date, transport,])
 
     print("Package Booked Successfully")
     print("Generated Booking ID:", booking_id)
@@ -144,7 +143,7 @@ def view_bookings():
     try:
         with open("bookings.csv", "r") as f:
             reader = csv.reader(f)
-            print("\nbooking_id | tourist_id | tourist_name | package_id | date | transport | price")
+            print("\nbooking_id | tourist_id | tourist_name | package_id | date | transport | Bus price | Train price | Flight price")
             for row in reader:
                 print(row)
     except:

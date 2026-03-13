@@ -1,13 +1,6 @@
-1,1,2,10-02-2026
-A02,4,Amit Kundu,2,22-12-2026,Train,1000
-A03,4,Amit Kundu,6294357075,amit@gmailcom,Andal,3,22-12-2026,Flight,"10,000"
-A04,3,Akash Jha,983256,akash@gmail.com,Asansol,Kedernath,12-08-2026,Flight,"10,000"
-<<<<<<< HEAD
-A05,4,Amit Kundu,6294357075,amit@gmailcom,Andal,Kashmir,12-02-2026,Bus,"12,000"
-A06,4,Amit Kundu,6294357075,amit@gmailcom,Andal,Kashmir,12-02-2027,Bus,"12,000"
-A07,5,Sukanya Dutta,7811022281,sukanya@gmail.com,Andal,Kashmir,12-02-2025,Train,"8,000"
-A08,5,Sukanya Dutta,7811022281,sukanya@gmail.com,Andal,Ladakh,12-02-2026,Bus,"11,411"
-=======
-A05,3,Akash Jha,983256,akash@gmail.com,Asansol,Kedernath,11-10-2026,Train,"3,000"
->>>>>>> 4435c21b80b93513616c83f25bad2878777bd3a7
-A09,104,Souvik Sadhu,7407887215,souvik@gmail.com,Andal,Kashmir,22-5-26,Bus,"12,000"
+Booking Id,Tourist Id,Tourist Name,Tourist Phone No , Tourist Email,Tourist City,Package Name,Date,Mode of Transport,Price
+A01,102,Sukanya Dutta,7811022281,sukanya@gmail.com,Andal,Kedernath,15-03-2026,Flight,"10,000"
+A02,104,Surya Mondal,7431999482,surya@gmail.com,Ukhra,Kashmir,20-04-2026,Train,"8,000"
+A03,105,Nayan Paul,9641434462,nayan@gmail.com,Borachok,Ladakh,25-04-2026,Train,"2,544"
+A04,104,suray,bus price,23-4-26,Bus
+A05,104,suray,bus price,23-4-26,Bus
