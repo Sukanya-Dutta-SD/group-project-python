@@ -34,8 +34,9 @@ def add_tourist():
     with open("tourists.csv", "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([tid, name, phone, email, city, aadhar])
-
+    speak("Tourist Added Successfully")
     print("Tourist Added Successfully")
+    speak(f"Generated Tourist ID {tid}")
     print("Generated Tourist ID:", tid)
 # View Tourists
 def view_tourists():
@@ -197,36 +198,22 @@ def view_bookings():
 # Generate Bill
 def generate_bill():
     pid = input("Enter Booking ID: ")
-    print(type(pid))
-
-    # package_price = 0
-    # place = ""
-    # days = ""
-
-    # try:
-    #     with open("bookings.csv", "r") as f:
-    #         reader = csv.reader(f)
-    #         for row in reader:
-    #             if row[0] == pid:
-    #                 place = row[1]
-    #                 days = row[2]
-    #                 package_price = int(row[3])
-    #                 break
-    # except:
-    #     print("Package file not found")
-    #     return
 
     try:
         with open("bookings.csv", "r") as f:
             reader = csv.reader(f)
             for row in reader:
 
+
+
                 if row[0] == pid:   # correct column for package_id
 
                     place = row[5]
                     days = row[7]
-                    package_price = int(row[9])
+                    package_price = row[9]
                     transport = row[8]
+
+
 
                     # total = package_price + transport_price
 
@@ -240,6 +227,7 @@ def generate_bill():
                     # print("Total Amount :", total)
                     print("------------------")
                     return
+
     except:
         print("Booking file not found")
 
