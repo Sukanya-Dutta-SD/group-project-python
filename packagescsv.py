@@ -152,6 +152,53 @@ def view_bookings():
 
 
 # Generate Bill
+
+    print("Booking Not Found")
+# def generate_bill():
+#     pid = input("Enter Package ID: ")
+# 
+#     package_price = 0
+#     place = ""
+#     days = ""
+# 
+#     try:
+#         with open("packages.csv", "r") as f:
+#             reader = csv.reader(f)
+#             for row in reader:
+#                 if row[0] == pid:
+#                     place = row[1]
+#                     days = row[2]
+#                     package_price = int(row[3])
+#                     break
+#     except:
+#         print("Package file not found")
+#         return
+# 
+#     try:
+#         with open("bookings.csv", "r") as f:
+#             reader = csv.reader(f)
+#             for row in reader:
+# 
+#                 if row[3] == pid:   # correct column for package_id
+# 
+#                     transport = row[5]
+#                     transport_price = int(row[6])
+# 
+#                     total = package_price + transport_price
+# 
+#                     print("\n------ BILL ------")
+#                     print("Package ID :", pid)
+#                     print("Place :", place)
+#                     print("Days :", days)
+#                     print("Package Price :", package_price)
+#                     print("Transport :", transport)
+#                     print("Transport Price :", transport_price)
+#                     print("Total Amount :", total)
+#                     print("------------------")
+#                     return
+#     except:
+#         print("Booking file not found")
+
 def generate_bill():
     pid = input("Enter Package ID: ")
 
@@ -166,7 +213,7 @@ def generate_bill():
                 if row[0] == pid:
                     place = row[1]
                     days = row[2]
-                    package_price = int(row[3])
+                    package_price = int(row[4].replace(",",""))
                     break
     except:
         print("Package file not found")
