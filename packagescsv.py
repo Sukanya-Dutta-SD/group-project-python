@@ -185,20 +185,20 @@ def book_package():
 
     if choice == 1:
         transport = "Bus"
-        price = 0
+        price = package_details[3]
     elif choice == 2:
         transport = "Train"
-        price = 0
+        price = package_details[4]
     elif choice == 3:
         transport = "Flight"
-        price = 0
+        price = package_details[5]
     else:
         print("Invalid Choice")
         return
 
     with open("bookings.csv", "a", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow([booking_id, tourist_id, tourist_details[1], tourist_details[2], tourist_details[3], tourist_details[4], package_details[1], date, package_details[3], package_details[4]])
+        writer.writerow([booking_id, tourist_id, tourist_details[1], tourist_details[2], tourist_details[3], tourist_details[4], package_details[1], date, transport, price])
 
     speak("Package Booked Successfully")
     print("Package Booked Successfully")
