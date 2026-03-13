@@ -1,7 +1,8 @@
 # Add Tourist
 import csv
 import os
-import pyttsx3
+import matplotlib.pyplot as plt
+from pyttsx3 import speak
 
 
 def add_tourist():
@@ -67,62 +68,6 @@ def search_tourist():
     if not found:
         print("Tourist Not Found")
 
-#speak
-
-def speak(text):
-    engine = pyttsx3.init()
-    engine.setProperty('rate', 170)
-    engine.setProperty('volume', 10.0)
-    voices = engine.getProperty('voices')
-
-    engine.setProperty('voice', voices[1].id)
-    engine.say(text)
-    engine.runAndWait()
-    engine.stop()
-
-
-# Fetch Tourist
-
-def fetch_tourist(tid):
-    found = False
-    try:
-        with open("tourists.csv", "r") as f:
-            reader = csv.reader(f)
-            for row in reader:
-                if row[0] == tid:
-
-                    found = True
-                    return row
-                    # break
-
-    except:
-        print("File not found")
-
-    if not found:
-        print("Tourist Not Found")
-
-
-# Fetch package
-
-def fetch_package(tid):
-    found = False
-    try:
-        with open("packages.csv", "r") as f:
-            reader = csv.reader(f)
-            for row in reader:
-                if row[0] == tid:
-
-                    found = True
-                    return row
-                    # break
-
-    except:
-        print("File not found")
-
-    if not found:
-        print("Package Not Found")
-
-
 
 # Show Packages
 def show_packages():
@@ -140,6 +85,7 @@ def show_packages():
 # Book Package
 def book_package():
 
+    # Automatic Booking ID (A01, A02, A03...)
     booking_id = "A01"
 
     if os.path.exists("bookings.csv"):
@@ -171,6 +117,26 @@ def book_package():
     package_details = fetch_package(package_id)
     date = input("Enter Travel Date: ")
 
+    print("\nTransport Type")
+    print("1. Bus")
+    print("2. Train")
+    print("3. Flight")
+
+    choice = int(input("Enter Transport Number: "))
+
+    if choice == 1:
+        transport = "Bus"
+        price = 0
+    elif choice == 2:
+        transport = "Train"
+        price = 0
+    elif choice == 3:
+        transport = "Flight"
+        price = 0
+    else:
+        print("Invalid Choice")
+        return
+
     with open("bookings.csv", "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([booking_id, tourist_id, tourist_details[1], tourist_details[2], tourist_details[3], tourist_details[4], package_details[1], date, package_details[3], package_details[4]])
@@ -193,6 +159,137 @@ def view_bookings():
     except:
         print("No Booking Records Found")
 
+    # CHART FUNCTIONS
+    #transport chart
+    def transport_chart():
+
+        bus = 0
+        train = 0
+        flight = 0
+
+        try:
+            with open("bookings.csv", "r") as f:
+
+                reader = csv.reader(f)
+
+                for row in reader:
+
+                    if not row:
+                        continue
+
+                    if row[5] == "Bus":
+                        bus += 1
+
+                    elif row[5] == "Train":
+                        train += 1
+
+                    elif row[5] == "Flight":
+                        flight += 1
+
+        except:
+            print("Bookings file not found")
+            return
+
+        labels = ["Bus", "Train", "Flight"]
+        values = [bus, train, flight]
+
+        plt.bar(labels, values)
+        plt.title("Transport Usage")
+        plt.xlabel("Transport")
+        plt.ylabel("Bookings")
+        plt.show()
+
+#package chart
+    def package_chart():
+
+        package_count = {}
+
+        try:
+            with open("bookings.csv", "r") as f:
+
+                reader = csv.reader(f)
+
+                for row in reader:
+
+                    pid = row[3]
+
+                    if pid in package_count:
+                        package_count[pid] += 1
+                    else:
+                        package_count[pid] = 1
+
+        except:
+            print("Bookings file not found")
+            return
+
+        packages = list(package_count.keys())
+        counts = list(package_count.values())
+
+        plt.bar(packages, counts)
+        plt.title("Package Popularity")
+        plt.xlabel("Package ID")
+        plt.ylabel("Bookings")
+        plt.show()
+
+    #city chart
+    def city_chart():
+
+        city_count = {}
+
+        try:
+            with open("tourists.csv", "r") as f:
+
+                reader = csv.reader(f)
+
+                for row in reader:
+
+                    city = row[4]
+
+                    if city in city_count:
+                        city_count[city] += 1
+                    else:
+                        city_count[city] = 1
+
+        except:
+            print("Tourists file not found")
+            return
+
+        cities = list(city_count.keys())
+        counts = list(city_count.values())
+
+        plt.bar(cities, counts)
+        plt.title("Tourists by City")
+        plt.xlabel("City")
+        plt.ylabel("Tourists")
+        plt.show()
+
+    # CHART MENU
+    def chart_menu():
+
+        while True:
+
+            print("\n------ CHART ANALYTICS ------")
+            print("1. Transport Usage Chart")
+            print("2. Package Popularity Chart")
+            print("3. Tourist City Chart")
+            print("4. Back to Main Menu")
+
+            ch = input("Enter Choice: ")
+
+            if ch == "1":
+                transport_chart()
+
+            elif ch == "2":
+                package_chart()
+
+            elif ch == "3":
+                city_chart()
+
+            elif ch == "5":
+                break
+
+            else:
+                print("Invalid Choice")
 
 # Generate Bill
 def generate_bill():
@@ -264,7 +361,6 @@ while True:
         generate_bill()
 
     elif ch == "7":
-        speak("Thank You for Visiting Our Site")
         print("Thank You for Visiting Our Site")
         break
 
