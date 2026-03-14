@@ -451,14 +451,14 @@ def generate_bill():
 
 
                     print("\n------ BILL ------")
-                    print("Package ID :", pid)
-                    print("Tourist Name :", name)
-                    print("Tourist Address :", tourist_add)
-                    print("Date :", date)
-                    print("Duration :", duration)
-                    print("Place :", place)
-                    print("Package Price :", package_price)
-                    print("Transport :", transport)
+                    print(speak_back(f"Package ID :{pid}"))
+                    print(speak_back(f"Tourist Name :{name}"))
+                    print(speak_back(f"Tourist Address :{tourist_add}"))
+                    print(speak_back(f"Date :{date}"))
+                    print(speak_back(f"Duration :{duration}"))
+                    print(speak_back(f"Place :{place}"))
+                    print(speak_back(f"Package Price :{package_price}"))
+                    print(speak_back(f"Transport :{transport}"))
                     print("------------------")
                     return
 
