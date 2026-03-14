@@ -3,6 +3,7 @@ import csv
 import os
 import matplotlib.pyplot as plt
 import pyttsx3
+from datetime import datetime
 from pyttsx3 import speak
 
 
@@ -57,10 +58,31 @@ def add_tourist():
                 tid = max(ids) + 1
 
     name = input(speak_back("Enter Name: "))
-    phone = input(speak_back("Enter Phone no: "))
-    email = input(speak_back("Enter Email: "))
+
+
+    while True:
+        phone = input(speak_back("Enter Phone no: "))
+        if len(phone) == 10 and phone.isdigit():
+            break
+        print(speak_back("Please enter a valid 10 digit phone number"))
+
+    while True:
+        email = input(speak_back("Enter Email: "))
+        if email[-10:] == "@gmail.com":
+            break
+        print(speak_back("Please enter a valid email Id"))
+
+
+
     city = input(speak_back("Enter City: "))
-    aadhar = input(speak_back("Enter Aadhar No: "))
+
+    while True:
+        aadhar = input(speak_back("Enter Aadhar No: "))
+        parts = aadhar.split(" ")
+
+        if len(parts) == 3 and all(len(p) == 4 and p.isdigit() for p in parts):
+            break
+        print(speak_back("Please enter a valid 12 digit Aadhar number"))
 
     with open("tourists.csv", "a", newline="") as f:
         writer = csv.writer(f)
@@ -192,7 +214,27 @@ def book_package():
 
     package_id = input(speak_back("Enter Package ID: "))
     package_details = fetch_package(package_id)
-    date = input(speak_back("Enter Travel Date: "))
+
+    date = input(speak_back("Enter Travel Date (dd-mm-yyyy): "))
+    while True:
+        try:
+            datetime.strptime(date, "%d-%m-%Y")
+            break
+        except ValueError:
+            date = input(speak_back("Please enter valid date :"))
+
+    #date input second method
+    # while True:
+    #     date = input("Enter Travel Date (dd-mm-yyyy): ")
+    #     parts = date.split("-")
+    #
+    #     if len(parts) == 3 and all(p.isdigit() for p in parts):
+    #         dd, mm, yyyy = parts
+    #
+    #         if len(dd) == 2 and len(mm) == 2 and len(yyyy) == 4:
+    #             break
+    #
+    #     print("Please enter date in dd-mm-yyyy format")
 
     print("\nTransport Type")
     print("1. Bus")
@@ -257,10 +299,10 @@ def transport_chart():
     values = [bus, train, flight]
 
 
-    plt.bar(labels, values)
+    plt.pie(values, labels=labels)
     plt.title("Transport Usage")
-    plt.xlabel("Transport")
-    plt.ylabel("Bookings")
+    # plt.xlabel("Transport")
+    # plt.ylabel("Bookings")
     plt.show()
 
 #package chart
@@ -290,10 +332,10 @@ def package_chart():
     packages = list(package_count.keys())
     counts = list(package_count.values())
 
-    plt.bar(packages, counts)
+    plt.pie(counts, labels=packages)
     plt.title("Package Popularity")
-    plt.xlabel("Package Name")
-    plt.ylabel("Bookings")
+    # plt.xlabel("Package Name")
+    # plt.ylabel("Bookings")
     plt.show()
 
     #city chart
@@ -322,10 +364,10 @@ def city_chart():
     cities = list(city_count.keys())
     counts = list(city_count.values())
 
-    plt.bar(cities, counts)
+    plt.pie(counts, labels = cities)
     plt.title("Tourists by City")
-    plt.xlabel("City")
-    plt.ylabel("Tourists")
+    # plt.xlabel("City")
+    # plt.ylabel("Tourists")
     plt.show()
 
     # CHART MENU
@@ -375,7 +417,12 @@ def view_bookings():
 
 # Generate Bill
 def generate_bill():
-    pid = input("Enter Booking ID: ")
+    pid = input(speak_back("Enter Booking ID: "))
+
+
+
+
+
 
     try:
         with open("bookings.csv", "r") as f:
@@ -386,14 +433,27 @@ def generate_bill():
 
                 if row[0] == pid:   # correct column for package_id
 
+                    name = row[2]
                     place = row[5]
-                    days = row[7]
+                    date = row[7]
                     package_price = row[9]
                     transport = row[8]
 
+                    with open("packages.csv", "r") as p_f:
+                        p_reader = csv.reader(p_f)
+
+                        for p_row in p_reader:
+                            if p_row[1] == row[6]:
+                                days = p_row[2]
+
+
+
+
                     print("\n------ BILL ------")
                     print("Package ID :", pid)
+                    print("Tourist Name :", name)
                     print("Place :", place)
+                    print("Date :", date)
                     print("Days :", days)
                     print("Package Price :", package_price)
                     print("Transport :", transport)
@@ -441,8 +501,8 @@ while True:
         chart_menu()
 
     elif ch == "8":
-        print("Thank You for Visiting Our Site")
+        print(speak_back("Thank You for Visiting Our Site"))
         break
 
     else:
-        print("Invalid Choice")
+        print(speak_back("Invalid Choice"))
