@@ -89,8 +89,7 @@ def add_tourist():
         writer.writerow([tid, name, phone, email, city, aadhar])
 
     print(speak_back("Tourist Added Successfully"))
-    tourist_id_speak = "Generated Tourist ID:", tid
-    print(speak_back(tourist_id_speak))
+    print(speak_back(f"Generated Tourist ID: {tid}"))
 # View Tourists
 def view_tourists():
     try:
@@ -112,8 +111,7 @@ def search_tourist():
             reader = csv.reader(f)
             for row in reader:
                 if row[0] == tid:
-                    tourist_found_text = "Tourist Found:", row
-                    print(speak_back(tourist_found_text))
+                    print(speak_back(f"Tourist Found: {row}"))
                     found = True
                     break
     except:
