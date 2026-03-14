@@ -434,7 +434,8 @@ def generate_bill():
                 if row[0] == pid:   # correct column for package_id
 
                     name = row[2]
-                    place = row[5]
+                    tourist_add = row[5]
+                    place = row[6]
                     date = row[7]
                     package_price = row[9]
                     transport = row[8]
@@ -444,7 +445,7 @@ def generate_bill():
 
                         for p_row in p_reader:
                             if p_row[1] == row[6]:
-                                days = p_row[2]
+                                duration = p_row[2]
 
 
 
@@ -452,9 +453,10 @@ def generate_bill():
                     print("\n------ BILL ------")
                     print("Package ID :", pid)
                     print("Tourist Name :", name)
-                    print("Place :", place)
+                    print("Tourist Address :", tourist_add)
                     print("Date :", date)
-                    print("Days :", days)
+                    print("Duration :", duration)
+                    print("Place :", place)
                     print("Package Price :", package_price)
                     print("Transport :", transport)
                     print("------------------")
