@@ -1,10 +1,7 @@
-package_id,package name,duration,mode,price
-1,Kedernath,2 weeks,Bus,"5,000"
-2,Kedernath,2 weeks,Train,"3,000"
-3,Kedernath,2 weeks,Flight,"10,000"
-4,Kashmir,1 week,Bus,"12,000"
-5,Kashmir,1 week,Train,"8,000"
-6,Kashmir,1 week,Flight,"25,000"
-7,Ladakh,14 days,Bus,"11,411"
-8,Ladakh,14 days,Train,"2,544"
-9,Ladakh,14 days,Flight,"24,588"
+package_id,package name,duration,Bus price,Train price,flight price
+1,Kedernath,2 weeks,5000,"3,000",12000
+2,Kashmir,1 week,7000,"4,000",10000
+3,Ladakh,14 days,10000,"5,000",15000
+4,Darjeeling,4 days,500,300,5000
+5,Delhi,7 days,6000,"3,000",10000
+6,Varanasi,4 days,800,400,9000
